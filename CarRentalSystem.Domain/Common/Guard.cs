@@ -81,7 +81,8 @@
         {
             var exception = new TException
             {
-                Error = message
+                Message = message,
+                 
             };
 
             throw exception;
