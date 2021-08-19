@@ -44,6 +44,7 @@
 
         public void ChangeAvailability() => this.IsAvailable = !this.IsAvailable;
 
+
         private void Validate(string model, string imageUrl, decimal pricePerDay)
         {
             Guard.ForStringLength<InvalidCarAdException>(
