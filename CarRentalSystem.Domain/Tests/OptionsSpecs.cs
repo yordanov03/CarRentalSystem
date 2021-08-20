@@ -3,10 +3,6 @@ using CarRentalSystem.Domain.Models;
 using CarRentalSystem.Domain.Models.CarAds;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace CarRentalSystem.Domain.Tests
@@ -17,7 +13,7 @@ namespace CarRentalSystem.Domain.Tests
         public void CreateOptionsSuccessfully()
         {
             //Arrange
-            Action options = ()=> new Options(true, 4, TransmissionType.Automatic);
+            Action options = () => new Options(true, 4, TransmissionType.Automatic);
 
             //Assert
             options.Should().NotThrow<InvalidOptionsException>();
@@ -27,7 +23,7 @@ namespace CarRentalSystem.Domain.Tests
         public void LessThanMinSeatShouldThrowException()
         {
             //Arrange
-            Action options = () => new Options(true, ModelConstants.Options.MinNumberOfSeats-1, TransmissionType.Automatic);
+            Action options = () => new Options(true, ModelConstants.Options.MinNumberOfSeats - 1, TransmissionType.Automatic);
 
             //Assert
             options.Should().Throw<InvalidOptionsException>();
@@ -37,7 +33,7 @@ namespace CarRentalSystem.Domain.Tests
         public void MoreThanMinSeatShouldThrowException()
         {
             //Arrange
-            Action options = () => new Options(true, ModelConstants.Options.MaxNumberOfSeats+1, TransmissionType.Automatic);
+            Action options = () => new Options(true, ModelConstants.Options.MaxNumberOfSeats + 1, TransmissionType.Automatic);
 
             //Assert
             options.Should().Throw<InvalidOptionsException>();

@@ -1,9 +1,9 @@
-using System;
-using Xunit;
-using FluentAssertions;
-using CarRentalSystem.Domain.Models.CarAds;
 using CarRentalSystem.Domain.Exceptions;
 using CarRentalSystem.Domain.Models;
+using CarRentalSystem.Domain.Models.CarAds;
+using FluentAssertions;
+using System;
+using Xunit;
 
 namespace CarRentalSystem.Test
 {
@@ -43,7 +43,7 @@ namespace CarRentalSystem.Test
         public void DescriptionCharsAboveMaxShouldThrowException()
         {
             //Act
-            Action act = () => new Category("Valid name", new string('a',ModelConstants.Category.MaxDescriptionLength+1));
+            Action act = () => new Category("Valid name", new string('a', ModelConstants.Category.MaxDescriptionLength + 1));
 
             //Assert
             act.Should().Throw<InvalidCarAdException>();

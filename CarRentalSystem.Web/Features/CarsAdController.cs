@@ -1,11 +1,8 @@
 ﻿using CarRentalSystem.Domain.Models.CarAds;
 using CarRentalSystem.Domain.Models.Dealers;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarRentalSystem.Web.Features
 {

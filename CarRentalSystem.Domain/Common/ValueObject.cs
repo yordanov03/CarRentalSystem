@@ -1,9 +1,9 @@
-﻿namespace CarRentalSystem.Domain.Common
-{
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
+namespace CarRentalSystem.Domain.Common
+{
     public abstract class ValueObject
     {
         private readonly BindingFlags privateBindingFlags = 

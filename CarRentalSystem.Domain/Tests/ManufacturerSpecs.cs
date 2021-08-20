@@ -3,10 +3,6 @@ using CarRentalSystem.Domain.Models;
 using CarRentalSystem.Domain.Models.CarAds;
 using FluentAssertions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace CarRentalSystem.Domain.Tests
@@ -37,7 +33,7 @@ namespace CarRentalSystem.Domain.Tests
         public void LongManufacturerNameShouldThrowException()
         {
             //Arrange
-            Action manucaturer = () => new Manufacturer(new string('*', ModelConstants.Common.MaxNameLength+1));
+            Action manucaturer = () => new Manufacturer(new string('*', ModelConstants.Common.MaxNameLength + 1));
 
             //Assert
             manucaturer.Should().Throw<InvalidCarAdException>();
