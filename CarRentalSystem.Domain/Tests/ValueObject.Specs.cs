@@ -1,0 +1,42 @@
+﻿using CarRentalSystem.Domain.Models.CarAds;
+using FluentAssertions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace CarRentalSystem.Domain.Tests
+{
+    public class ValueObjectSpecs
+    {
+        [Fact]
+        public void ValueObjectsWithEqualPropertiesShouldBeEqual()
+        {
+            // Arrange
+            var first = new Options(true, 2, TransmissionType.Automatic);
+            var second = new Options(true, 2, TransmissionType.Automatic);
+
+            // Act
+            var result = first == second;
+
+            // Arrange
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void ValueObjectsWithDifferentPropertiesShouldNotBeEqual()
+        {
+            // Arrange
+            var first = new Options(true, 2, TransmissionType.Automatic);
+            var second = new Options(true, 2, TransmissionType.Manual);
+
+            // Act
+            var result = first == second;
+
+            // Arrange
+            result.Should().BeFalse();
+        }
+    }
+}
