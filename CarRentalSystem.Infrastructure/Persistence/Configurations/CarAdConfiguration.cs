@@ -15,6 +15,7 @@ namespace CarRentalSystem.Infrastructure.Persistance.Configurations
             builder.Property(c => c.Model).HasMaxLength(ModelConstants.CarAd.MaxModelLength).IsRequired();
             builder.Property(c => c.ImageUrl).IsRequired();
             builder.Property(c => c.PricePerDay).IsRequired();
+            builder.Property(c => c.PricePerDay).IsRequired().HasColumnType("decimal(18,2)");
             builder.OwnsOne(c => c.Options, o =>
                 {
                     o.WithOwner();
