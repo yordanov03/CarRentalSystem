@@ -8,7 +8,7 @@
 
     public class CarAd : Entity<int>, IAggregateRoot
     {
-        public CarAd(
+        internal CarAd(
             Manufacturer manufacturer,
             string model,
             Category category,
@@ -28,7 +28,7 @@
             this.IsAvailable = isAvailable;
         }
 
-        private CarAd(
+        internal CarAd(
             string model,
             string imageUrl,
             decimal pricePerDay,
