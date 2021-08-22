@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/CarRentalSystem.Infrastructure/Persistence/Migrations/20210821145944_UserTable.cs

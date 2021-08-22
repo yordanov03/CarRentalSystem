@@ -1,4 +1,6 @@
+using CarRentalSystem.Application;
 using CarRentalSystem.Infrastructure;
+using CarRentalSystem.Web;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,8 @@ namespace CarRentalSystem.Startup
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure(this.Configuration);
+            services.AddApplication(this.Configuration);
+            services.AddWebComponents();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -43,12 +47,14 @@ namespace CarRentalSystem.Startup
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            }).Initialize();
         }
     }
 }
