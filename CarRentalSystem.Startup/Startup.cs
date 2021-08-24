@@ -1,4 +1,5 @@
 using CarRentalSystem.Application;
+using CarRentalSystem.Domain;
 using CarRentalSystem.Infrastructure;
 using CarRentalSystem.Web;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +24,7 @@ namespace CarRentalSystem.Startup
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDomain();
             services.AddInfrastructure(this.Configuration);
             services.AddApplication(this.Configuration);
             services.AddWebComponents();
