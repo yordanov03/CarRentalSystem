@@ -19,12 +19,12 @@
         [HttpPost]
         [Route(nameof(Register))]
         public async Task<ActionResult<LoginOutputModel>> Register(RegisterUserCommand command)
-            => await this.Mediator.Send(command).ToActionResult();
+            => await this.Send(command);
 
 
         [HttpPost]
         [Route(nameof(Login))]
         public async Task<ActionResult<LoginOutputModel>> Login(LoginUserCommand command)
-       => await this.Mediator.Send(command).ToActionResult();
+       => await this.Send(command);
     }
 }

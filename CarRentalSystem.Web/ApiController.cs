@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using CarRentalSystem.Application.Common;
+using CarRentalSystem.Web.Common;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace CarRentalSystem.Web
 {
@@ -14,5 +17,14 @@ namespace CarRentalSystem.Web
             => this.mediator ??= this.HttpContext
             .RequestServices
             .GetService<IMediator>();
+
+        protected Task<ActionResult<TResult>> Send<TResult>(IRequest<TResult> request)
+    => this.Mediator.Send(request).ToActionResult();
+
+        protected Task<ActionResult> Send(IRequest<Result> request)
+            => this.Mediator.Send(request).ToActionResult();
+
+        protected Task<ActionResult<TResult>> Send<TResult>(IRequest<Result<TResult>> request)
+            => this.Mediator.Send(request).ToActionResult();
     }
 }
