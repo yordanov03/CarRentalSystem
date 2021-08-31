@@ -8,6 +8,6 @@ namespace CarRentalSystem.Application.Contracts
     public interface IRepository<out TEntity> where TEntity : IAggregateRoot
     {
         IQueryable<TEntity> All();
-        Task<int> SaveChanges(CancellationToken cancelation = default);
+        //Task<int> SaveChanges(CancellationToken cancelation = default);
     }
 }

@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace CarRentalSystem.Infrastructure.Persistence.Repositories
 {
-    internal class DataRepository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+    internal abstract class DataRepository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
     {
         private readonly CarRentalDbContext db;
 
-        public DataRepository(CarRentalDbContext db) => this.db = db;
+        protected DataRepository(CarRentalDbContext db) => this.Data = db;
+
+        protected CarRentalDbContext Data { get; }
         public IQueryable<TEntity> All() => this.db.Set<TEntity>();
 
-        public Task<int> SaveChanges(CancellationToken cancelation = default)
-       => this.db.SaveChangesAsync(cancelation);
     }
 }

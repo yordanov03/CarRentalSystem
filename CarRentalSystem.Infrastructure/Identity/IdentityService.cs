@@ -29,7 +29,7 @@
             this.applicationSettings = applicationSettings.Value;
         }
 
-        public async Task<Result> Register(UserInputModel userInput)
+        public async Task<Result<IUser>> Register(UserInputModel userInput)
         {
             var user = new User(userInput.Email);
 
@@ -37,9 +37,9 @@
 
             var errors = identityResult.Errors.Select(e => e.Description);
 
-            return identityResult.Succeeded
+            return (Result<IUser>)(identityResult.Succeeded
                 ? Result.Success
-                : Result.Failure(errors);
+                : Result.Failure(errors));
         }
 
         public async Task<Result<LoginOutputModel>> Login(UserInputModel userInput)
