@@ -1,32 +1,59 @@
 ﻿using CarRentalSystem.Application.Common;
 using CarRentalSystem.Application.Contracts;
+using CarRentalSystem.Application.Features.Dealers;
+using CarRentalSystem.Domain.Factories.Dealers;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
-    public class RegisterUserCommand : UserInputModel, IRequest<Result<IUser>>
+    public class RegisterUserCommand : UserInputModel, IRequest<Result>
     {
-        public RegisterUserCommand(string email, string password) : base(email, password)
+        public RegisterUserCommand(string email, string password, string name, string phoneNumber) : base(email, password)
         {
-
+            this.Name = name;
+            this.PhoneNumber = phoneNumber;
         }
 
-        public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<IUser>>
+        public string Name { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result>
         {
             private readonly IIdentity identity;
+            private readonly IDealerFactory dealerFactory;
+            private readonly IDealerRepository dealerRepository;
 
-            public RegisterUserCommandHandler(IIdentity identity) => this.identity = identity;
+            public RegisterUserCommandHandler(IIdentity identity, IDealerFactory dealerFactory, IDealerRepository dealerRepository)
+            {
+                this.identity = identity;
+                this.dealerRepository = dealerRepository;
+                this.dealerFactory = dealerFactory;
+            }
 
-            public Task<Result<IUser>> Handle(
-                RegisterUserCommand request,
-                CancellationToken cancellationToken)
-                => this.identity.Register(request);
+            public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+            {
+                var result = await this.identity.Register(request);
+
+                if (result.Succeeded)
+                {
+                    return result;
+                }
+
+                var user = result.Data;
+                var dealer = dealerFactory
+                    .WithName(request.Name)
+                    .WithPhoneNumber(request.PhoneNumber)
+                    .Build();
+
+                user.BecomeDealer(dealer);
+
+                await this.dealerRepository.Save(dealer, cancellationToken);
+                return result;
+            }
+
         }
     }
 }

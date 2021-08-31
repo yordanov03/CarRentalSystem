@@ -1,5 +1,4 @@
 ﻿using CarRentalSystem.Domain.Models.Dealers;
-using System;
 
 namespace CarRentalSystem.Domain.Factories.Dealers
 {
