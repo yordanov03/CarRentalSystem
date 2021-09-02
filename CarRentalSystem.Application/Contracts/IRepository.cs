@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace CarRentalSystem.Application.Contracts
 {
-    public interface IRepository<out TEntity> where TEntity : IAggregateRoot
+    public interface IRepository<in TEntity> where TEntity : IAggregateRoot
     {
-        IQueryable<TEntity> All();
-        //Task<int> SaveChanges(CancellationToken cancelation = default);
+        Task Save(TEntity entity, CancellationToken cancelation = default);
     }
 }

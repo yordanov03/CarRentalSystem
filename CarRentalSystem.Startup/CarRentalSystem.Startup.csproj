@@ -24,4 +24,8 @@
     <ProjectReference Include="..\CarRentalSystem.Web\CarRentalSystem.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Specs\" />
+  </ItemGroup>
+
 </Project>

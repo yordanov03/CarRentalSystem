@@ -14,5 +14,7 @@
             CancellationToken cancellationToken = default);
 
         Task<int> Total(CancellationToken cancellationToken = default);
+        Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default);
+        Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default);
     }
 }

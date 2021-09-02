@@ -42,6 +42,16 @@
                 .ToListAsync(cancellationToken);
         }
 
+        public Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default)
+        {
+            return this.Data.Categories.FirstOrDefaultAsync(c => c.Id == categoryId, cancellationToken);
+        }
+
+        public Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default)
+        {
+            return this.Data.Manufacturers.FirstOrDefaultAsync(m => m.Name == manufacturer, cancellationToken);
+        }
+
         public async Task<int> Total(CancellationToken cancellationToken = default)
             => await this
                 .AllAvailable()
@@ -51,5 +61,6 @@
             => this
                 .All()
                 .Where(car => car.IsAvailable);
+
     }
 }
