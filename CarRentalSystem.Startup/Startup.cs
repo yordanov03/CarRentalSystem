@@ -2,6 +2,7 @@ using CarRentalSystem.Application;
 using CarRentalSystem.Domain;
 using CarRentalSystem.Infrastructure;
 using CarRentalSystem.Web;
+using CarRentalSystem.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -44,6 +45,8 @@ namespace CarRentalSystem.Startup
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CarRentalSystem.Startup v1"));
             }
+
+            app.UseValidationExceptionHandler();
 
             app.UseHttpsRedirection();
 

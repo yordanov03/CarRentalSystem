@@ -18,7 +18,7 @@ namespace CarRentalSystem.Domain.Factories.CarAds
             Action act = () => carAdFactory
             .WithManufacturer("New Manufacturer")
             .WithModel("Some model")
-            .WithCategory("Some category", "Some description that must have twenty chars")
+            .WithCategory("SUV", "Some description that must have twenty chars")
             .WithImageUrl("https://someurl.com")
             .WithOptions(true, 4, TransmissionType.Automatic)
             .WithPricePerDay(23)
@@ -132,7 +132,7 @@ namespace CarRentalSystem.Domain.Factories.CarAds
             // Act
             var carAd = carAdFactory
                 .WithManufacturer("TestManufacturer")
-                .WithCategory("TestCategory", "TestCategoryDescription")
+                .WithCategory("SUV", "TestCategoryDescription")
                 .WithOptions(true, 2, TransmissionType.Automatic)
                 .WithImageUrl("http://test.image.url")
                 .WithModel("TestModel")

@@ -10,7 +10,7 @@
             public bool CanCreate(Type type) => type == typeof(Category);
 
             public object? Create(Type type)
-                => new Category("Valid category", "Valid description text");
+                => new Category("SUV", "Valid description text");
 
             public Priority Priority => Priority.Default;
         }

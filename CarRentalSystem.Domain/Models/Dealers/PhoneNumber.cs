@@ -2,7 +2,7 @@
 {
     using Common;
     using Exceptions;
-
+    using System.Text.RegularExpressions;
     using static ModelConstants.PhoneNumber;
 
     public class PhoneNumber : ValueObject
@@ -11,9 +11,9 @@
         {
             this.Validate(number);
 
-            if (!number.StartsWith(PhoneNumberFirstSymbol))
+            if (!Regex.IsMatch(number, PhoneNumberRegularExpression))
             {
-                throw new InvalidPhoneNumberException($"Phone number must start with a '{PhoneNumberFirstSymbol}'.");
+                throw new InvalidPhoneNumberException("Phone number must start with a '+' and contain only digits afterwards.");
             }
 
             this.Number = number;
