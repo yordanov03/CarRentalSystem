@@ -11,7 +11,7 @@
         {
             this.RuleFor(c => c.Category)
                 .MustAsync(async (category, token) => await carAdRepository
-                    .GetCategory(category, token) != null)
+                .GetCategory(category, token) != null)
                 .WithMessage("'{PropertyName}' does not exist.");
 
             this.RuleFor(c => c.ImageUrl)
