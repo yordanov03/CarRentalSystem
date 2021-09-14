@@ -5,6 +5,7 @@
     using Application;
     using Application.Features.CarAds;
     using AutoMapper;
+    using CarRentalSystem.Infrastructure.Persistance;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
