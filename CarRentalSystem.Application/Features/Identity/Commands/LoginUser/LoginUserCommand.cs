@@ -17,6 +17,8 @@ namespace CarRentalSystem.Application.Features.Identity.Commands.LoginUser
         {
             private readonly IIdentity identity;
 
+            public LoginUserCommandHandler(IIdentity identity) => this.identity = identity;
+
             public async Task<Result<LoginOutputModel>> Handle(
                 LoginUserCommand request, CancellationToken cancellation)
                 => await this.identity.Login(request);

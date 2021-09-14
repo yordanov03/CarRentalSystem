@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
-    public class RegisterUserCommand : UserInputModel, IRequest<Result>
+    public class CreateUserCommand : UserInputModel, IRequest<Result>
     {
-        public RegisterUserCommand(string email, string password, string name, string phoneNumber) : base(email, password)
+        public CreateUserCommand(string email, string password, string name, string phoneNumber) : base(email, password)
         {
             this.Name = name;
             this.PhoneNumber = phoneNumber;
@@ -20,20 +20,20 @@ namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 
         public string PhoneNumber { get; set; }
 
-        public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result>
         {
             private readonly IIdentity identity;
             private readonly IDealerFactory dealerFactory;
             private readonly IDealerRepository dealerRepository;
 
-            public RegisterUserCommandHandler(IIdentity identity, IDealerFactory dealerFactory, IDealerRepository dealerRepository)
+            public CreateUserCommandHandler(IIdentity identity, IDealerFactory dealerFactory, IDealerRepository dealerRepository)
             {
                 this.identity = identity;
                 this.dealerRepository = dealerRepository;
                 this.dealerFactory = dealerFactory;
             }
 
-            public async Task<Result> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var result = await this.identity.Register(request);
 

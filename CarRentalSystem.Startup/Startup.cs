@@ -29,7 +29,7 @@ namespace CarRentalSystem.Startup
             services.AddInfrastructure(this.Configuration);
             services.AddApplication(this.Configuration);
             services.AddWebComponents();
-            services.AddControllers();
+            //services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRentalSystem.Startup", Version = "v1" });

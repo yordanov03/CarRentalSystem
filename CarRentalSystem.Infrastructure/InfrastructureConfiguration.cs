@@ -1,7 +1,9 @@
 ﻿namespace CarRentalSystem.Infrastructure
 {
+    using System.Text;
     using Application;
     using Application.Contracts;
+    using Application.Features.Identity;
     using CarRentalSystem.Infrastructure.Persistance;
     using Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,7 +13,6 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using Persistence;
-    using System.Text;
 
     public static class InfrastructureConfiguration
     {
@@ -84,6 +85,7 @@
                 });
 
             services.AddTransient<IIdentity, IdentityService>();
+            services.AddTransient<IJwtTokenGenerator, JwtTokenGeneratorService>();
 
             return services;
         }

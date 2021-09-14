@@ -1,15 +1,12 @@
 ﻿namespace CarRentalSystem.Infrastructure
 {
-    using System;
-    using System.Reflection;
-    using Application;
     using Application.Features.CarAds;
-    using AutoMapper;
     using CarRentalSystem.Infrastructure.Persistance;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using Persistence;
+    using System;
+    using System.Reflection;
     using Xunit;
 
     public class InfrastructureConfigurationSpecs

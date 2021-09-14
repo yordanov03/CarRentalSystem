@@ -15,12 +15,6 @@ namespace CarRentalSystem.Infrastructure.Persistence.Repositories
         {
 
         }
-        public async Task Save(Dealer dealer, CancellationToken cancellationToken = default)
-        {
-            this.Data.Add(dealer);
-            await this.Data.SaveChangesAsync(cancellationToken);
-
-        }
 
         public async Task<Dealer> FindById(string userId, CancellationToken cancellationToken = default)
         {

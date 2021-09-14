@@ -4,9 +4,9 @@ using static CarRentalSystem.Domain.Models.ModelConstants.PhoneNumber;
 
 namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
-    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
-        public RegisterUserCommandValidator()
+        public CreateUserCommandValidator()
         {
             this.RuleFor(u => u.Email)
             .MinimumLength(MinEmailLength)
