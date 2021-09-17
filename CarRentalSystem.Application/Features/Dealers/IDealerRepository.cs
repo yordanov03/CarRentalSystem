@@ -8,7 +8,5 @@ namespace CarRentalSystem.Application.Features.Dealers
     public interface IDealerRepository : IRepository<Dealer>
     {
         Task<Dealer> FindById(string userId, CancellationToken cancellationToken = default);
-
-        Task<Dealer> FindDealerById(int dealerId, CancellationToken cancellationToken = default);
     }
 }

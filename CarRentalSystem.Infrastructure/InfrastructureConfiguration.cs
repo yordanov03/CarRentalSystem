@@ -4,9 +4,7 @@
     using Application;
     using Application.Contracts;
     using Application.Features.Identity;
-    using CarRentalSystem.Application.Features.Dealers;
     using CarRentalSystem.Infrastructure.Persistance;
-    using CarRentalSystem.Infrastructure.Persistence.Repositories;
     using Identity;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
@@ -35,8 +33,7 @@
                         configuration.GetConnectionString("DefaultConnection"),
                         b => b.MigrationsAssembly(typeof(CarRentalDbContext)
                             .Assembly.FullName)))
-                .AddTransient<IInitializer, CarRentalDbInitializer>()
-            .AddTransient<IDealerRepository, DealerRpository>();
+                .AddTransient<IInitializer, CarRentalDbInitializer>();
 
         internal static IServiceCollection AddRepositories(this IServiceCollection services)
             => services

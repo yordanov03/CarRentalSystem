@@ -30,9 +30,9 @@
             this.carAds = new HashSet<CarAd>();
         }
 
-        public string Name { get; private set; }
+        public string Name { get; }
 
-        public PhoneNumber PhoneNumber { get; private set; }
+        public PhoneNumber PhoneNumber { get; }
 
         public IReadOnlyCollection<CarAd> CarAds => this.carAds.ToList().AsReadOnly();
 
@@ -44,20 +44,5 @@
                 MinNameLength,
                 MaxNameLength,
                 nameof(this.Name));
-
-        public Dealer UpdateName(string name)
-        {
-            this.Validate(name);
-            this.Name = name;
-
-            return this;
-        }
-
-        public Dealer UpdatePhoneNumber(string phoneNumber)
-        {
-            this.PhoneNumber = phoneNumber;
-
-            return this;
-        }
     }
 }
