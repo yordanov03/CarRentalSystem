@@ -7,7 +7,10 @@
     using Application.Features.CarAds;
     using Application.Features.CarAds.Queries.Search;
     using AutoMapper;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Common;
+    using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
+    using CarRentalSystem.Infrastructure.Common;
     using CarRentalSystem.Infrastructure.Persistance;
     using Domain.Models.CarAds;
     using Microsoft.EntityFrameworkCore;
@@ -20,14 +23,20 @@
             : base(db)
         => this.mapper = mapper;
 
-        public async Task<IEnumerable<CarAdListingModel>> GetCarAdListings(
-            Specification<CarAd> specification,
-            CancellationToken cancellationToken = default)
-            => await this.mapper
-                .ProjectTo<CarAdListingModel>(this
-                    .AllAvailable()
-                    .Where(specification))
-                .ToListAsync(cancellationToken);
+        public async Task<IEnumerable<TOutputModel>> GetCarAdListings<TOutputModel>(
+                    Specification<CarAd> carAdSpecification,
+                    Specification<Dealer> dealerSpecification,
+                    CarAdsSortOrder carAdsSortOrder,
+                    int skip = 0,
+                    int take = int.MaxValue,
+                    CancellationToken cancellationToken = default)
+                    => (await this.mapper
+                        .ProjectTo<TOutputModel>(this
+                            .GetCarAdsQuery(carAdSpecification, dealerSpecification)
+                            .Sort(carAdsSortOrder))
+                        .ToListAsync(cancellationToken))
+                        .Skip(skip)
+                        .Take(take);
 
         public Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default)
         {
@@ -39,15 +48,28 @@
             return this.Data.Manufacturers.FirstOrDefaultAsync(m => m.Name == manufacturer, cancellationToken);
         }
 
-        public async Task<int> Total(CancellationToken cancellationToken = default)
+        public async Task<int> Total(
+            Specification<CarAd> carAdSpecification,
+            Specification<Dealer> dealerSpecification,
+            CancellationToken cancellationToken = default)
             => await this
-                .AllAvailable()
+                .GetCarAdsQuery(carAdSpecification, dealerSpecification)
                 .CountAsync(cancellationToken);
 
         private IQueryable<CarAd> AllAvailable()
             => this
                 .All()
                 .Where(car => car.IsAvailable);
+
+        private IQueryable<CarAd> GetCarAdsQuery(
+            Specification<CarAd> carAdSpecification,
+            Specification<Dealer> dealerSpecification)
+            => this
+                .Data
+                .Dealers
+                .Where(dealerSpecification)
+                .SelectMany(d => d.CarAds)
+                .Where(carAdSpecification);
 
     }
 }
