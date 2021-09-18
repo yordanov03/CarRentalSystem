@@ -1,12 +1,8 @@
-﻿using CarRentalSystem.Application;
-using CarRentalSystem.Application.Contracts;
-using CarRentalSystem.Application.Features.CarAds.Commands;
+﻿using CarRentalSystem.Application.Features.CarAds.Commands;
+using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
 using CarRentalSystem.Application.Features.CarAds.Queries.Search;
-using CarRentalSystem.Domain.Models.CarAds;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarRentalSystem.Web.Features
@@ -25,5 +21,12 @@ namespace CarRentalSystem.Web.Features
         public async Task<ActionResult<CreateCarAdOutputModel>> Create(
             CreateCarAdCommand command)
             => await this.Send(command);
+
+        [HttpGet]
+        [Authorize]
+        [Route(nameof(My))]
+        public async Task<ActionResult<MyCarAdsOutputModel>> My(
+            [FromQuery] MyCarAdsQuery query)
+            => await this.Send(query);
     }
 }

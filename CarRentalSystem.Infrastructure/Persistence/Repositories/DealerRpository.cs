@@ -28,5 +28,22 @@ namespace CarRentalSystem.Infrastructure.Persistence.Repositories
             return dealer;
 
         }
+
+        public Task<int> GetDealerId(
+            string userId,
+            CancellationToken cancellationToken = default)
+            {
+            int id;
+
+            bool success = int.TryParse(userId, out id);
+            if (!success)
+            {
+                throw new InvalidDealerException("No dealer with that id");
+            }
+
+            var dealerId = this.Data.Dealers.Where(d => d.Id == id).Select(d=>d.Id).FirstOrDefaultAsync(cancellationToken);
+
+            return dealerId;
+        }
     }
 }

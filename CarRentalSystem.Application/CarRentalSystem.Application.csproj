@@ -15,8 +15,4 @@
     <ProjectReference Include="..\CarRentalSystem.Domain\CarRentalSystem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\CarAds\Queries\Mine\" />
-  </ItemGroup>
-
 </Project>
