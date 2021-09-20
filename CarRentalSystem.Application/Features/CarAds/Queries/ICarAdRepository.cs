@@ -26,7 +26,7 @@
             CancellationToken cancellationToken = default);
         Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default);
         Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default);
-
         Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default);
+        Task<bool> Delete(int id, CancellationToken cancellationToken = default);
     }
 }

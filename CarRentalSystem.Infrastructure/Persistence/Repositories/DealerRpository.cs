@@ -32,6 +32,13 @@ namespace CarRentalSystem.Infrastructure.Persistence.Repositories
 
         }
 
+        public async Task<bool> HasCarAd(int dealerId, int carAdId, CancellationToken cancellationToken = default)
+           => await this
+               .All()
+               .Where(d => d.Id == dealerId)
+               .AnyAsync(d => d.CarAds
+                   .Any(c => c.Id == carAdId), cancellationToken);
+
         public Task<int> GetDealerId(
             string userId,
             CancellationToken cancellationToken = default)

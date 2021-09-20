@@ -69,6 +69,22 @@
             return this.Data.Manufacturers.FirstOrDefaultAsync(m => m.Name == manufacturer, cancellationToken);
         }
 
+        public async Task<bool> Delete(int id, CancellationToken cancellationToken = default)
+        {
+            var carAd = await this.Data.CarAds.FindAsync(id);
+
+            if (carAd == null)
+            {
+                return false;
+            }
+
+            this.Data.CarAds.Remove(carAd);
+
+            await this.Data.SaveChangesAsync(cancellationToken);
+
+            return true;
+        }
+
         public async Task<int> Total(
             Specification<CarAd> carAdSpecification,
             Specification<Dealer> dealerSpecification,
