@@ -11,26 +11,6 @@ namespace CarRentalSystem.Application.Features.CarAds.Commands
 {
     public class CreateCarAdCommand : IRequest<CreateCarAdOutputModel>
     {
-        public CreateCarAdCommand(
-           string manufacturer,
-           string model,
-           int category,
-           string imageUrl,
-           decimal pricePerDay,
-           bool climateControl,
-           int numberOfSeats,
-           int transmissionType)
-        {
-            this.Manufacturer = manufacturer;
-            this.Model = model;
-            this.Category = category;
-            this.ImageUrl = imageUrl;
-            this.PricePerDay = pricePerDay;
-            this.ClimateControl = climateControl;
-            this.NumberOfSeats = numberOfSeats;
-            this.TransmissionType = transmissionType;
-        }
-
         public string Manufacturer { get; }
 
         public string Model { get; }
