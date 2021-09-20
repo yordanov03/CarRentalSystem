@@ -7,6 +7,7 @@
     using Application.Features.CarAds;
     using Application.Features.CarAds.Queries.Search;
     using AutoMapper;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
@@ -37,6 +38,26 @@
                         .ToListAsync(cancellationToken))
                         .Skip(skip)
                         .Take(take);
+
+        public async Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default)
+        {
+            var categories = await this.mapper
+               .ProjectTo<CategoryOutputModel>(this.Data.Categories)
+               .ToDictionaryAsync(c=>c.Id, cancellationToken);
+
+            var carAdsPerCategory = await this.AllAvailable()
+                .GroupBy(c => c.Id)
+                .Select(gr => new
+                {
+                    CategoryId = gr.Key,
+                    TotalCarAds = gr.Count()
+                }).ToListAsync(cancellationToken);
+
+            carAdsPerCategory.ForEach(c => categories[c.CategoryId].TotalCarAds = c.TotalCarAds);
+
+            return categories.Values;
+
+        }
 
         public Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default)
         {

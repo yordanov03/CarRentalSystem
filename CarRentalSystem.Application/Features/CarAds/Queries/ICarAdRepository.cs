@@ -1,14 +1,14 @@
 ﻿namespace CarRentalSystem.Application.Features.CarAds
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
     using Contracts;
     using Domain.Models.CarAds;
-    using Queries.Search;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public interface ICarAdRepository : IRepository<CarAd>
     {
@@ -26,5 +26,7 @@
             CancellationToken cancellationToken = default);
         Task<Category> GetCategory(int categoryId, CancellationToken cancellationToken = default);
         Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default);
     }
 }

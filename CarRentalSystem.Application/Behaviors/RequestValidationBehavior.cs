@@ -22,7 +22,7 @@
             CancellationToken cancellationToken, 
             RequestHandlerDelegate<TResponse> next)
         {
-            var context = new ValidationContext(request);
+            var context = new ValidationContext<object>(request);
 
             var errors = this
                 .validators
