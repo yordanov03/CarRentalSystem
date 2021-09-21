@@ -1,5 +1,6 @@
 ﻿using CarRentalSystem.Application.Features.CarAds.Commands;
 using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
+using CarRentalSystem.Application.Features.CarAds.Queries.Details;
 using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
 using CarRentalSystem.Application.Features.CarAds.Queries.Search;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +36,12 @@ namespace CarRentalSystem.Web.Features
         [Route(nameof(Categories))]
         public async Task<ActionResult<IEnumerable<CategoryOutputModel>>> Categories(
             [FromQuery] CategoriesQuery query)
+            => await this.Send(query);
+
+        [HttpGet]
+        [Route(Id)]
+        public async Task<ActionResult<CarAdDetailsOutputModel>> Details(
+            [FromRoute] CarAdDetailsQuery query)
             => await this.Send(query);
     }
 }

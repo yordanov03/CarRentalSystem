@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Details;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
     using Contracts;
@@ -28,5 +29,6 @@
         Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default);
         Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default);
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
+        Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken);
     }
 }

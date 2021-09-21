@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarRentalSystem.Application.Features.Dealers;
+using CarRentalSystem.Application.Features.Dealers.Common;
 using CarRentalSystem.Application.Features.Dealers.GetDealers;
 using CarRentalSystem.Domain.Exceptions;
 using CarRentalSystem.Domain.Models.Dealers;
@@ -63,5 +64,11 @@ namespace CarRentalSystem.Infrastructure.Persistence.Repositories
                     .Where(d => d.Id == dealerId))
                 .FirstOrDefaultAsync(cancellationToken);
 
+        public async Task<DealerOutputModel> GetDetailsByCarId(int carAdId, CancellationToken cancellationToken = default)
+        => await this.mapper
+            .ProjectTo<DealerDetailsOutputModel>
+            (this.All()
+            .Where(d => d.CarAds.Any(c => c.Id == carAdId)))
+            .SingleOrDefaultAsync(cancellationToken);
     }
 }

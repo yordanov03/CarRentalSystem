@@ -1,4 +1,5 @@
 ﻿using CarRentalSystem.Application.Contracts;
+using CarRentalSystem.Application.Features.Dealers.Common;
 using CarRentalSystem.Application.Features.Dealers.GetDealers;
 using CarRentalSystem.Domain.Models.Dealers;
 using System.Threading;
@@ -12,5 +13,6 @@ namespace CarRentalSystem.Application.Features.Dealers
         Task<int> GetDealerId(string userId, CancellationToken cancellationToken = default);
         Task<DealerDetailsOutputModel> FindDealerById(int dealerId, CancellationToken cancellationToken = default);
         Task<bool> HasCarAd(int dealerId, int carAdId, CancellationToken cancellationToken = default);
+        Task<DealerOutputModel> GetDetailsByCarId(int carAdId, CancellationToken cancellationToken = default);
     }
 }

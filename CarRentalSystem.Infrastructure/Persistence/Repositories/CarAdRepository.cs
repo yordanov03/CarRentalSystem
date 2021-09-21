@@ -9,6 +9,7 @@
     using AutoMapper;
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
+    using CarRentalSystem.Application.Features.CarAds.Queries.Details;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
     using CarRentalSystem.Infrastructure.Common;
@@ -84,6 +85,13 @@
 
             return true;
         }
+
+        public async Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken)
+        => await this.mapper
+                .ProjectTo<CarAdDetailsOutputModel>(this
+                    .AllAvailable()
+                    .Where(c => c.Id == id))
+                .FirstOrDefaultAsync(cancellationToken);
 
         public async Task<int> Total(
             Specification<CarAd> carAdSpecification,
