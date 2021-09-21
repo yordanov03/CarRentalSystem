@@ -86,6 +86,12 @@
             return true;
         }
 
+        public async Task<CarAd> Find(int id, CancellationToken cancellationToken = default)
+            => await this
+                .All()
+                .Include(c => c.Manufacturer)
+                .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+
         public async Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken)
         => await this.mapper
                 .ProjectTo<CarAdDetailsOutputModel>(this

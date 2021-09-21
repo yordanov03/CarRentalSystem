@@ -51,23 +51,73 @@
             this.Options = null!;
         }
 
-        public Manufacturer Manufacturer { get; }
+        public Manufacturer Manufacturer { get; private set; }
 
-        public string Model { get; }
+        public string Model { get; private set; }
 
-        public Category Category { get; }
+        public Category Category { get; private set; }
 
-        public string ImageUrl { get; }
+        public string ImageUrl { get; private set; }
 
-        public decimal PricePerDay { get; }
+        public decimal PricePerDay { get; private set; }
 
-        public Options Options { get; }
+        public Options Options { get; private set; }
 
         public bool IsAvailable { get; private set; }
 
         public void ChangeAvailability() => this.IsAvailable = !this.IsAvailable;
 
+        public CarAd UpdateManufacturer(string manufacturer)
+        {
+            if (this.Manufacturer.Name != manufacturer)
+            {
+                this.Manufacturer = new Manufacturer(manufacturer);
+            }
 
+            return this;
+        }
+
+        public CarAd UpdateModel(string model)
+        {
+            this.ValidateModel(model);
+            this.Model = model;
+
+            return this;
+        }
+
+        public CarAd UpdateCategory(Category category)
+        {
+            this.ValidateCategory(category);
+            this.Category = category;
+
+            return this;
+        }
+
+        public CarAd UpdateImageUrl(string imageUrl)
+        {
+            this.ValidateImageUrl(imageUrl);
+            this.ImageUrl = imageUrl;
+
+            return this;
+        }
+
+        public CarAd UpdatePricePerDay(decimal pricePerDay)
+        {
+            this.ValidatePricePerDay(pricePerDay);
+            this.PricePerDay = pricePerDay;
+
+            return this;
+        }
+
+        public CarAd UpdateOptions(
+            bool hasClimateControl,
+            int numberOfSeats,
+            TransmissionType transmissionType)
+        {
+            this.Options = new Options(hasClimateControl, numberOfSeats, transmissionType);
+
+            return this;
+        }
         private void Validate(string model, string imageUrl, decimal pricePerDay)
         {
             Guard.ForStringLength<InvalidCarAdException>(
@@ -86,6 +136,27 @@
                 decimal.MaxValue,
                 nameof(this.PricePerDay));
         }
+
+        private void ValidateModel(string model)
+           => Guard.ForStringLength<InvalidCarAdException>(
+               model,
+               MinModelLength,
+               MaxModelLength,
+               nameof(this.Model));
+
+        private void ValidateImageUrl(string imageUrl)
+            => Guard.ForValidUrl<InvalidCarAdException>(
+                imageUrl,
+                nameof(this.ImageUrl));
+
+        private void ValidatePricePerDay(decimal pricePerDay)
+            => Guard.AgainstOutOfRange<InvalidCarAdException>(
+                pricePerDay,
+                Zero,
+                decimal.MaxValue,
+                nameof(this.PricePerDay));
+
+
 
         private void ValidateCategory(Category category)
         {

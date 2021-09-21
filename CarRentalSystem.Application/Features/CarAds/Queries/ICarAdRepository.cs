@@ -30,5 +30,6 @@
         Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default);
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
         Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken);
+        Task<CarAd> Find(int id, CancellationToken cancellationToken = default);
     }
 }

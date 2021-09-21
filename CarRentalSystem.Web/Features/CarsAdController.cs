@@ -1,4 +1,6 @@
-﻿using CarRentalSystem.Application.Features.CarAds.Commands;
+﻿using CarRentalSystem.Application.Features;
+using CarRentalSystem.Application.Features.CarAds.Commands;
+using CarRentalSystem.Application.Features.CarAds.Commands.Edit;
 using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
 using CarRentalSystem.Application.Features.CarAds.Queries.Details;
 using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
@@ -43,5 +45,12 @@ namespace CarRentalSystem.Web.Features
         public async Task<ActionResult<CarAdDetailsOutputModel>> Details(
             [FromRoute] CarAdDetailsQuery query)
             => await this.Send(query);
+
+        [HttpPut]
+        [Authorize]
+        [Route(Id)]
+        public async Task<ActionResult> Edit(
+            int id, EditCarAdCommand command)
+            => await this.Send(command.SetId(id));
     }
 }
