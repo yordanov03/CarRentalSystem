@@ -1,7 +1,9 @@
 ﻿using CarRentalSystem.Application.Features;
 using CarRentalSystem.Application.Features.CarAds.Commands;
+using CarRentalSystem.Application.Features.CarAds.Commands.ChangeAvailability;
 using CarRentalSystem.Application.Features.CarAds.Commands.Edit;
 using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
+using CarRentalSystem.Application.Features.CarAds.Queries.Delete;
 using CarRentalSystem.Application.Features.CarAds.Queries.Details;
 using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
 using CarRentalSystem.Application.Features.CarAds.Queries.Search;
@@ -43,8 +45,8 @@ namespace CarRentalSystem.Web.Features
         [HttpGet]
         [Route(Id)]
         public async Task<ActionResult<CarAdDetailsOutputModel>> Details(
-            [FromRoute] CarAdDetailsQuery query)
-            => await this.Send(query);
+             [FromRoute] CarAdDetailsQuery query)
+             => await this.Send(query);
 
         [HttpPut]
         [Authorize]
@@ -52,5 +54,19 @@ namespace CarRentalSystem.Web.Features
         public async Task<ActionResult> Edit(
             int id, EditCarAdCommand command)
             => await this.Send(command.SetId(id));
+
+        [HttpPut]
+        [Authorize]
+        [Route(Id + PathSeparator + nameof(ChangeAvailability))]
+        public async Task<ActionResult> ChangeAvailability(
+            [FromRoute] ChangeAvailabilityCommand query)
+            => await this.Send(query);
+
+        [HttpDelete]
+        [Authorize]
+        [Route(Id)]
+        public async Task<ActionResult> Delete(
+           [FromRoute] DeleteCarAdCommand command)
+           => await this.Send(command);
     }
 }

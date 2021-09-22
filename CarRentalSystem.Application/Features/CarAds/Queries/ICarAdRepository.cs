@@ -29,7 +29,7 @@
         Task<Manufacturer> GetManufacturer(string manufacturer, CancellationToken cancellationToken = default);
         Task<IEnumerable<CategoryOutputModel>> GetCategories(CancellationToken cancellationToken = default);
         Task<bool> Delete(int id, CancellationToken cancellationToken = default);
-        Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken);
+        Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken = default);
         Task<CarAd> Find(int id, CancellationToken cancellationToken = default);
     }
 }

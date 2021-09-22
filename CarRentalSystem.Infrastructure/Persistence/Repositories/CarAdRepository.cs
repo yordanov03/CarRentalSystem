@@ -92,7 +92,7 @@
                 .Include(c => c.Manufacturer)
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
-        public async Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken)
+        public async Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken = default)
         => await this.mapper
                 .ProjectTo<CarAdDetailsOutputModel>(this
                     .AllAvailable()
