@@ -1,5 +1,4 @@
 ﻿using CarRentalSystem.Domain.Common;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

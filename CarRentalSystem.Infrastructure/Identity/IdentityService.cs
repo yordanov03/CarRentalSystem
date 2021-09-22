@@ -10,13 +10,14 @@
     using Application.Contracts;
     using Application.Features.Identity;
     using CarRentalSystem.Application.Common;
+    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
     public class IdentityService : IIdentity
     {
-        private const string InvalidLoginErrorMessage = "Invalid credentials.";
+        private const string InvalidErrorMessage = "Invalid credentials.";
 
         private readonly UserManager<User> userManager;
         private readonly ApplicationSettings applicationSettings;
@@ -47,13 +48,13 @@
             var user = await this.userManager.FindByEmailAsync(userInput.Email);
             if (user == null)
             {
-                return InvalidLoginErrorMessage;
+                return InvalidErrorMessage;
             }
 
             var passwordValid = await this.userManager.CheckPasswordAsync(user, userInput.Password);
             if (!passwordValid)
             {
-                return InvalidLoginErrorMessage;
+                return InvalidErrorMessage;
             }
 
             var token = this.GenerateJwtToken(
@@ -85,6 +86,28 @@
             var encryptedToken = tokenHandler.WriteToken(token);
 
             return encryptedToken;
+        }
+
+        public async Task<Result> ChangePassword(ChangePasswordInputModel changePasswordInput)
+        {
+            var user = await this.userManager.FindByIdAsync(changePasswordInput.UserId);
+
+            if (user == null)
+            {
+                return InvalidErrorMessage;
+            }
+
+            var identityResult = await this.userManager
+                .ChangePasswordAsync(
+                user,
+                changePasswordInput.CurrentPassword,
+                changePasswordInput.NewPassword);
+
+            var errors = identityResult.Errors.Select(e => e.Description);
+
+            return identityResult.Succeeded
+                ? Result.Success
+                : Result.Failure(errors);
         }
     }
 }
