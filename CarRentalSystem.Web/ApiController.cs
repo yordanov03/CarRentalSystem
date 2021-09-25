@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace CarRentalSystem.Web
 {
     [ApiController]
-    [Route("[controller")]
+    [Route("[controller]")]
     public abstract class ApiController : ControllerBase
     {
         public const string PathSeparator = "/";

@@ -1,5 +1,4 @@
 ﻿using CarRentalSystem.Application.Common;
-using CarRentalSystem.Application.Contracts;
 using CarRentalSystem.Application.Features.Dealers;
 using CarRentalSystem.Domain.Factories.Dealers;
 using MediatR;
@@ -10,15 +9,9 @@ namespace CarRentalSystem.Application.Features.Identity.Commands.RegisterUser
 {
     public class CreateUserCommand : UserInputModel, IRequest<Result>
     {
-        public CreateUserCommand(string email, string password, string name, string phoneNumber) : base(email, password)
-        {
-            this.Name = name;
-            this.PhoneNumber = phoneNumber;
-        }
+        public string Name { get; set; } = default!;
 
-        public string Name { get; set; }
-
-        public string PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; } = default!;
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Result>
         {

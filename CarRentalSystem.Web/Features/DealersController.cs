@@ -2,6 +2,7 @@
 {
     using CarRentalSystem.Application.Features;
     using CarRentalSystem.Application.Features.Dealers.EditDealer;
+    using CarRentalSystem.Application.Features.Dealers.GetDealer;
     using CarRentalSystem.Application.Features.Dealers.GetDealers;
     using Microsoft.AspNetCore.Mvc;
     using System.Threading.Tasks;
@@ -11,7 +12,7 @@
         [HttpGet]
         [Route(Id)]
         public async Task<ActionResult<DealerDetailsOutputModel>> Details(
-            [FromRoute] Application.Features.Dealers.GetDealer.DealerDetailsQuery query)
+            [FromRoute] DealerDetailsQuery query)
             => await this.Send(query);
 
         [HttpPut]

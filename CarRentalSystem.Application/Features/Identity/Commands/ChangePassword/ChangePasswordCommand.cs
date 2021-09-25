@@ -27,10 +27,13 @@ namespace CarRentalSystem.Application.Features.Identity.Commands.ChangePassword
                 this.currentUser = currentUser;
                 this.identity = identity;
             }
-            public async Task<Result> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
+            public async Task<Result> Handle(
+                ChangePasswordCommand request,
+                CancellationToken cancellationToken)
+            => await this.identity.ChangePassword(new ChangePasswordInputModel(
+                    this.currentUser.UserId,
+                    request.CurrentPassword,
+                    request.NewPassword));
         }
     }
 }

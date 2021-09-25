@@ -1,19 +1,19 @@
 ﻿namespace CarRentalSystem.Infrastructure.Identity
 {
+    using Application;
+    using Application.Features.Identity;
+    using CarRentalSystem.Application.Common;
+    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
+    using CarRentalSystem.Application.Features.Identity.Commands.LoginUser;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.Options;
+    using Microsoft.IdentityModel.Tokens;
     using System;
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
     using System.Text;
     using System.Threading.Tasks;
-    using Application;
-    using Application.Contracts;
-    using Application.Features.Identity;
-    using CarRentalSystem.Application.Common;
-    using CarRentalSystem.Application.Features.Identity.Commands.ChangePassword;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.Extensions.Options;
-    using Microsoft.IdentityModel.Tokens;
 
     public class IdentityService : IIdentity
     {
@@ -23,7 +23,7 @@
         private readonly ApplicationSettings applicationSettings;
 
         public IdentityService(
-            UserManager<User> userManager, 
+            UserManager<User> userManager,
             IOptions<ApplicationSettings> applicationSettings)
         {
             this.userManager = userManager;
@@ -43,7 +43,7 @@
                 : Result.Failure(errors));
         }
 
-        public async Task<Result<LoginOutputModel>> Login(UserInputModel userInput)
+        public async Task<Result<LoginSuccessModel>> Login(UserInputModel userInput)
         {
             var user = await this.userManager.FindByEmailAsync(userInput.Email);
             if (user == null)
@@ -61,7 +61,7 @@
                 user.Id,
                 user.Email);
 
-            return new LoginOutputModel(token);
+            return new LoginSuccessModel(user.Id, token);
         }
 
         private string GenerateJwtToken(string userId, string email)
@@ -78,7 +78,7 @@
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key), 
+                    new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
 
