@@ -10,6 +10,7 @@
     using CarRentalSystem.Application.Features.CarAds.Queries.Categories;
     using CarRentalSystem.Application.Features.CarAds.Queries.Common;
     using CarRentalSystem.Application.Features.CarAds.Queries.Details;
+    using CarRentalSystem.Domain.Exceptions;
     using CarRentalSystem.Domain.Models.Dealers;
     using CarRentalSystem.Domain.Specifications;
     using CarRentalSystem.Infrastructure.Common;
@@ -93,11 +94,21 @@
                 .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
 
         public async Task<CarAdDetailsOutputModel> GetDetails(int id, CancellationToken cancellationToken = default)
-        => await this.mapper
-                .ProjectTo<CarAdDetailsOutputModel>(this
-                    .AllAvailable()
-                    .Where(c => c.Id == id))
-                .FirstOrDefaultAsync(cancellationToken);
+        //=> await this.mapper
+        //        .ProjectTo<CarAdDetailsOutputModel>(this
+        //            .AllAvailable()
+        //            .Where(c => c.Id == id))
+        //        .FirstOrDefaultAsync(cancellationToken);
+        {
+            var carAd = await this.AllAvailable().Where(c => c.Id == id).FirstOrDefaultAsync(cancellationToken);
+
+            if (carAd == null)
+            {
+                throw new InvalidCarAdException();
+            }
+
+            return this.mapper.Map<CarAdDetailsOutputModel>(carAd);
+        }
 
         public async Task<int> Total(
             Specification<CarAd> carAdSpecification,

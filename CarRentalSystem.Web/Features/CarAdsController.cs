@@ -16,7 +16,7 @@ namespace CarRentalSystem.Web.Features
 {
     [ApiController]
     [Route("[controller]")]
-    public class CarsAdController : ApiController
+    public class CarAdsController : ApiController
     {
         [HttpGet]
         public async Task<ActionResult<SearchCarAdsOutputModel>> Search(
@@ -24,13 +24,11 @@ namespace CarRentalSystem.Web.Features
             => await this.Send(query);
 
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult<CreateCarAdOutputModel>> Create(
             CreateCarAdCommand command)
             => await this.Send(command);
 
         [HttpGet]
-        [Authorize]
         [Route(nameof(My))]
         public async Task<ActionResult<MyCarAdsOutputModel>> My(
             [FromQuery] MyCarAdsQuery query)
@@ -49,21 +47,18 @@ namespace CarRentalSystem.Web.Features
              => await this.Send(query);
 
         [HttpPut]
-        [Authorize]
         [Route(Id)]
         public async Task<ActionResult> Edit(
             int id, EditCarAdCommand command)
             => await this.Send(command.SetId(id));
 
         [HttpPut]
-        [Authorize]
         [Route(Id + PathSeparator + nameof(ChangeAvailability))]
         public async Task<ActionResult> ChangeAvailability(
             [FromRoute] ChangeAvailabilityCommand query)
             => await this.Send(query);
 
         [HttpDelete]
-        [Authorize]
         [Route(Id)]
         public async Task<ActionResult> Delete(
            [FromRoute] DeleteCarAdCommand command)
