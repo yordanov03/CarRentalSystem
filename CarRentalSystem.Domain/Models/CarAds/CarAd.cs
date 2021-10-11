@@ -2,12 +2,10 @@
 {
     using Common;
     using Exceptions;
-
-    using static ModelConstants.Common;
-    using static ModelConstants.CarAd;
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using static ModelConstants.CarAd;
+    using static ModelConstants.Common;
 
     public class CarAd : Entity<int>, IAggregateRoot
     {
@@ -46,9 +44,9 @@
             this.PricePerDay = pricePerDay;
             this.IsAvailable = isAvailable;
 
-            this.Manufacturer = null!;
-            this.Category = null!;
-            this.Options = null!;
+            this.Manufacturer = default!;
+            this.Category = default!;
+            this.Options = default!;
         }
 
         public Manufacturer Manufacturer { get; private set; }

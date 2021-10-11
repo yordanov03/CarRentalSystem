@@ -25,6 +25,7 @@ namespace CarRentalSystem.Startup
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddDomain();
             services.AddInfrastructure(this.Configuration);
             services.AddApplication(this.Configuration);
@@ -34,6 +35,8 @@ namespace CarRentalSystem.Startup
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CarRentalSystem.Startup", Version = "v1" });
             });
+            services.AddCors();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +51,14 @@ namespace CarRentalSystem.Startup
 
             app.UseValidationExceptionHandler();
 
-            app.UseHttpsRedirection();
+            app.UseCors(b =>
+            {
+                b.AllowAnyHeader();
+                b.AllowAnyOrigin();
+                b.AllowAnyMethod();
+            });
+
+                app.UseHttpsRedirection();
 
             app.UseRouting();
 
@@ -60,6 +70,8 @@ namespace CarRentalSystem.Startup
             {
                 endpoints.MapControllers();
             }).Initialize();
+
+
         }
     }
 }

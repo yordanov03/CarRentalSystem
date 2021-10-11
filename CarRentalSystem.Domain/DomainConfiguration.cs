@@ -1,5 +1,6 @@
 ﻿namespace CarRentalSystem.Domain
 {
+    using CarRentalSystem.Domain.Models.InitialData;
     using Common;
     using Factories;
     using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,9 @@
                         .AssignableTo(typeof(IFactory<>)))
                     .AsMatchingInterface()
                     .WithTransientLifetime())
-                .AddTransient<IInitialData, CategoryData>();
+                .AddTransient<IInitialData, CategoryData>()
+                .AddTransient<IInitialData, CarAdData>()
+                .AddTransient<IInitialData, DealerData>()
+                .AddTransient<IInitialData, ManufacturerData>();
     }
 }
