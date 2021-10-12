@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit {
   }
 
   goToCars(id) {
-    this.router.navigate(['cars'], { queryParams: { category: id } });
+    // this.router.navigate(['carads'], { queryParams: { category: id } });
+    this.router.navigate(['carads',id]);
   }
 
 }

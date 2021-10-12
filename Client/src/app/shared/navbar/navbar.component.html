@@ -6,13 +6,13 @@
           <a class="nav-link" (click)="route('')">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="route('cars')">Cars</a>
+          <a class="nav-link" (click)="route('carads')">Cars</a>
         </li>
         <li class="nav-item" *ngIf="token">
-          <a class="nav-link"(click)="route('cars/create')">Create car</a>
+          <a class="nav-link"(click)="route('carads/create')">Create car</a>
         </li>
         <li class="nav-item" *ngIf="token">
-          <a class="nav-link"(click)="route('cars/mine')">My cars</a>
+          <a class="nav-link"(click)="route('carads/mine')">My cars</a>
         </li>
         <li class="nav-item" *ngIf="token">
             <a class="nav-link"(click)="route('dealers/me')">Profile</a>

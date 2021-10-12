@@ -58,8 +58,8 @@ export class SearchComponent implements OnInit {
     }
 
     var query = params.toString()
-    if (this.router.url.includes('mine')) {
-      query = '/mine?' + params
+    if (this.router.url.includes('my')) {
+      query = '/my?' + params
     }
     else {
       query = '?' + params

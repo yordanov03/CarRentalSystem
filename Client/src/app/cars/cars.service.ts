@@ -18,7 +18,7 @@ export class CarsService {
   }
 
   getUserCars(): Observable<Array<Car>> {
-    return this.http.get<Array<Car>>(this.carsPath + 'mine');
+    return this.http.get<Array<Car>>(this.carsPath + 'my');
   }
 
   getCar(id: string): Observable<Car> {

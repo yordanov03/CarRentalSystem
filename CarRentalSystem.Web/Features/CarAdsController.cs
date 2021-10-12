@@ -7,15 +7,12 @@ using CarRentalSystem.Application.Features.CarAds.Queries.Delete;
 using CarRentalSystem.Application.Features.CarAds.Queries.Details;
 using CarRentalSystem.Application.Features.CarAds.Queries.Mine;
 using CarRentalSystem.Application.Features.CarAds.Queries.Search;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CarRentalSystem.Web.Features
 {
-    [ApiController]
-    [Route("[controller]")]
     public class CarAdsController : ApiController
     {
         [HttpGet]

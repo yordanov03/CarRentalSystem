@@ -7,12 +7,11 @@ import { ViewComponent } from './view/view.component';
 import { DealerCarsComponent } from './dealer-cars/dealer-cars.component';
 
 const routes: Routes = [
-  { path: 'carads', component: ListComponent },
+  { path: '', component: ListComponent },
   { path:'my', component: DealerCarsComponent},
   { path: 'create', component: CreateComponent},
   { path: ':id', component: ViewComponent },
   { path: ':id/edit', component: EditComponent },
-  { path: '', component: ListComponent },
 ];
 
 @NgModule({
